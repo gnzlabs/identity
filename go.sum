@@ -1,0 +1,11 @@
+github.com/aead/ecdh v0.2.0 h1:pYop54xVaq/CEREFEcukHRZfTdjiWvYIsZDXXrBapQQ=
+github.com/aead/ecdh v0.2.0/go.mod h1:a9HHtXuSo8J1Js1MwLQx2mBhkXMT6YwUmVVEY4tTB8U=
+github.com/gnzlabs/keyring v0.0.0-20230915012525-8141b6305184 h1:I9phWyDTtFgEghNGuFxzpdEpjTigWGuSaB6ZkxTtwv8=
+github.com/gnzlabs/keyring v0.0.0-20230915012525-8141b6305184/go.mod h1:vVQ30yAllkidDsfnDlBCpaY//4Iv5hcnuX26+StwaF8=
+github.com/jmg292/G-Net v0.0.0-20230221163104-d20031bf56de h1:kxjMtK3Somcd8XwuGwjozahnDaNsObHCUjHPtaTruys=
+github.com/jmg292/G-Net v0.0.0-20230221163104-d20031bf56de/go.mod h1:0r9ALSBQs1IhH6fKYMN1JYxRSVGbfXOsEPrfO9RlV44=
+golang.org/x/crypto v0.0.0-20190211182817-74369b46fc67/go.mod h1:6SG95UA2DQfeDnfUPMdvaQW0Q7yPrPDi9nlGo2tz2b4=
+golang.org/x/crypto v0.13.0 h1:mvySKfSWJ+UKUii46M40LOvyWfN0s2U+46/jDd0e6Ck=
+golang.org/x/crypto v0.13.0/go.mod h1:y6Z2r+Rw4iayiXXAIxJIDAJ1zMW4yaTpebo8fPOliYc=
+golang.org/x/sys v0.12.0 h1:CM0HF96J0hcLAwsHPJZjfdNzs0gftsLfgKt57wWHJ0o=
+golang.org/x/sys v0.12.0/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
