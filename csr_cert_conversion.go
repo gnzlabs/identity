@@ -3,12 +3,12 @@ package identity
 import (
 	"crypto/x509"
 
-	gnet "github.com/jmg292/G-Net/pkg/gneterrs"
+	"github.com/gnzlabs/identity/errors"
 )
 
 func mapCertMemberstoCSR(cert *x509.Certificate) (csr *x509.CertificateRequest, err error) {
 	if cert == nil {
-		err = gnet.ErrorInvalidCertificateTemplate
+		err = errors.ErrInvalidCertTemplate
 	} else {
 		// Only the fields below are parsed by x509.CreateCertificateRequest
 		// See: https://pkg.go.dev/crypto/x509#CreateCertificateRequest
@@ -26,9 +26,9 @@ func mapCertMemberstoCSR(cert *x509.Certificate) (csr *x509.CertificateRequest, 
 
 func mapCSRMembersToCertTemplate(csr *x509.CertificateRequest, template *x509.Certificate) (cert *x509.Certificate, err error) {
 	if csr == nil {
-		err = gnet.ErrorInvalidCSR
+		err = errors.ErrInvalidCSR
 	} else if template == nil {
-		err = gnet.ErrorInvalidCertificateTemplate
+		err = errors.ErrInvalidCertTemplate
 	} else {
 		// Only the fields below are parsed by x509.CreateCertificate
 		// See: https://pkg.go.dev/crypto/x509#CreateCertificate

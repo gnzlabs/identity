@@ -3,9 +3,9 @@ package certificate
 import (
 	"crypto/x509"
 
-	gnet "github.com/jmg292/G-Net/pkg/gneterrs"
-	"github.com/jmg292/G-Net/pkg/identity/certificate/extensions"
-	"github.com/jmg292/G-Net/pkg/keyring"
+	"github.com/gnzlabs/identity/certificate/extensions"
+	"github.com/gnzlabs/identity/errors"
+	"github.com/gnzlabs/keyring"
 )
 
 type Identity struct {
@@ -18,7 +18,7 @@ func (identity *Identity) GetCertificateBySlot(keyslot keyring.KeySlot) (cert *h
 	} else if certExtension, e := findExtensionByOID(identity, extensionOid); e != nil {
 		err = e
 	} else if certExtension.Value == nil {
-		err = gnet.ErrorCertificateNotFound
+		err = errors.ErrCertNotFound
 	} else {
 		cert, err = parseHardwareBackedCertificate(certExtension.Value)
 	}
@@ -29,7 +29,7 @@ func (identity *Identity) AttestationCertificate() (cert *x509.Certificate, err 
 	if extAttestationCert, e := findExtensionByOID(identity, extensions.OIDVerifyProofOfOrigin); e != nil {
 		err = e
 	} else if extAttestationCert.Value == nil {
-		err = gnet.ErrorInvalidAttestationCert
+		err = errors.ErrInvalidAttestationCert
 	} else {
 		cert, err = x509.ParseCertificate(extAttestationCert.Value)
 	}

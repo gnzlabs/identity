@@ -16,7 +16,7 @@ func GetSlotExtensionOID(certificateSlot keyring.KeySlot) (oid asn1.ObjectIdenti
 	case keyring.EncryptionKeySlot:
 		oid = OIDEncrypt
 	default:
-		err = errors.ErrorInvalidKeySlot
+		err = errors.ErrInvalidKeySlot
 	}
 	return
 }

@@ -5,9 +5,9 @@ import (
 	"crypto/cipher"
 	"crypto/x509"
 
+	"github.com/gnzlabs/identity/certificate"
 	"github.com/gnzlabs/identity/errors"
-	"github.com/jmg292/G-Net/pkg/identity/certificate"
-	"github.com/jmg292/G-Net/pkg/keyring"
+	"github.com/gnzlabs/keyring"
 	"golang.org/x/crypto/chacha20poly1305"
 )
 
@@ -34,7 +34,7 @@ func NewPivAead(peer certificate.Identity, hsm keyring.HardwareKeyRing) (aead ci
 	if cert, e := peer.EncryptionCertificate(); e != nil {
 		err = e
 	} else if cert != nil {
-		err = errors.ErrInvalidCertificate
+		err = errors.ErrInvalidCert
 	} else if cert.Certificate().PublicKey != nil {
 		aead, err = New(peer.Certificate().PublicKey, peer.Certificate().PublicKeyAlgorithm, hsm)
 	}

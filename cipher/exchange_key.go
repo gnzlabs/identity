@@ -7,25 +7,25 @@ import (
 	"crypto/x509"
 
 	"github.com/aead/ecdh"
-	gnet "github.com/jmg292/G-Net/pkg/gneterrs"
+	"github.com/gnzlabs/identity/errors"
 )
 
 func getEphemeralKeyExchange(pubkey crypto.PublicKey, alg x509.PublicKeyAlgorithm) (kex ecdh.KeyExchange, err error) {
 	switch alg {
 	case x509.ECDSA:
 		if key, ok := pubkey.([]byte); !ok {
-			err = gnet.ErrorInvalidPublicKey
+			err = errors.ErrInvalidPublicKey
 		} else if len(key) == 32 {
 			kex = ecdh.Generic(elliptic.P256())
 		} else if len(key) == 48 {
 			kex = ecdh.Generic(elliptic.P384())
 		} else {
-			err = gnet.ErrorUnsupportedAlgorithm
+			err = errors.ErrUnsupportedAlgorithm
 		}
 	case x509.Ed25519:
 		kex = ecdh.X25519()
 	default:
-		err = gnet.ErrorUnsupportedAlgorithm
+		err = errors.ErrUnsupportedAlgorithm
 	}
 	return
 }

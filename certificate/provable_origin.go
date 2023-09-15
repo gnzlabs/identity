@@ -3,8 +3,8 @@ package certificate
 import (
 	"crypto/x509"
 
-	gnet "github.com/jmg292/G-Net/pkg/gneterrs"
-	"github.com/jmg292/G-Net/pkg/identity/certificate/extensions"
+	"github.com/gnzlabs/identity/certificate/extensions"
+	"github.com/gnzlabs/identity/errors"
 )
 
 type ProvableOrigin interface {
@@ -16,7 +16,7 @@ func GetProofOfOrigin(certificate Extensible) (proofOfOrigin *x509.Certificate, 
 	if extProofOfOrigin, e := findExtensionByOID(certificate, extensions.OIDProofOfOrigin); e != nil {
 		err = e
 	} else if extProofOfOrigin.Value == nil {
-		err = gnet.ErrorCertificateNotFound
+		err = errors.ErrCertNotFound
 	} else {
 		proofOfOrigin, err = x509.ParseCertificate(extProofOfOrigin.Value)
 	}

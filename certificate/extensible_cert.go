@@ -6,7 +6,7 @@ import (
 	"encoding/asn1"
 	"fmt"
 
-	gnet "github.com/jmg292/G-Net/pkg/gneterrs"
+	"github.com/gnzlabs/identity/errors"
 )
 
 type Extensible interface {
@@ -17,7 +17,7 @@ type Extensible interface {
 func parseExtensions(extended Extensible) (extensions *map[string]pkix.Extension, err error) {
 	var unhandledExtensions []pkix.Extension
 	if extended.Certificate() == nil {
-		err = gnet.ErrorInvalidCertificate
+		err = errors.ErrInvalidCert
 	} else {
 		if extended.Certificate().Extensions != nil {
 			unhandledExtensions = append(unhandledExtensions, extended.Certificate().Extensions...)
@@ -29,7 +29,7 @@ func parseExtensions(extended Extensible) (extensions *map[string]pkix.Extension
 		for _, extension := range unhandledExtensions {
 			oid := extension.Id.String()
 			if _, keyExists := extensionMap[oid]; keyExists {
-				err = fmt.Errorf(gnet.ErrorDuplicateExtension.Error(), oid)
+				err = fmt.Errorf(errors.ErrDuplicateExtension.Error(), oid)
 				break
 			} else {
 				extensionMap[oid] = extension
@@ -44,9 +44,9 @@ func parseExtensions(extended Extensible) (extensions *map[string]pkix.Extension
 
 func findExtensionByOID(cert Extensible, oid asn1.ObjectIdentifier) (extension *pkix.Extension, err error) {
 	if cert.Extensions() == nil {
-		err = gnet.ErrorInvalidCertificate
+		err = errors.ErrInvalidCert
 	} else if value, exists := (*cert.Extensions())[oid.String()]; !exists {
-		err = fmt.Errorf(gnet.ErrorNoSuchExtension.Error(), oid.String())
+		err = fmt.Errorf(errors.ErrNoSuchExtension.Error(), oid.String())
 	} else {
 		extension = &value
 	}

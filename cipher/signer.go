@@ -4,7 +4,7 @@ import (
 	"crypto"
 	"io"
 
-	gnet "github.com/jmg292/G-Net/pkg/gneterrs"
+	"github.com/gnzlabs/identity/errors"
 )
 
 // Implement crypto.Signer for identity/cipher.Aead
@@ -15,9 +15,9 @@ func (key *Aead) Public() crypto.PublicKey {
 // Implement crypto.Signer for identity/cipher.Aead
 func (key *Aead) Sign(rand io.Reader, ciphertext []byte, opts crypto.SignerOpts) (signature []byte, err error) {
 	if opts != nil {
-		err = gnet.ErrorUnsupportedSigScheme
+		err = errors.ErrUnsupportedSigScheme
 	} else if ciphertext == nil || len(ciphertext) <= key.Overhead() {
-		err = gnet.ErrorInvalidContentLength
+		err = errors.ErrInvalidContentLength
 	} else {
 		signature, err = key.hsm.Sign(rand, ciphertext[len(ciphertext)-key.Overhead():], opts)
 	}
